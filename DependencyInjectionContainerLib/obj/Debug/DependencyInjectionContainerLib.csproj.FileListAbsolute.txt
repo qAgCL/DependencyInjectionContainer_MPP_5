@@ -1,0 +1,6 @@
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\bin\Debug\DependencyInjectionContainerLib.dll
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\bin\Debug\DependencyInjectionContainerLib.pdb
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\obj\Debug\DependencyInjectionContainerLib.csprojAssemblyReference.cache
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\obj\Debug\DependencyInjectionContainerLib.csproj.CoreCompileInputs.cache
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\obj\Debug\DependencyInjectionContainerLib.dll
+D:\5 сем\СПП\Dependency Injection Container\Dependency Injection Container\DependencyInjectionContainerLib\obj\Debug\DependencyInjectionContainerLib.pdb
