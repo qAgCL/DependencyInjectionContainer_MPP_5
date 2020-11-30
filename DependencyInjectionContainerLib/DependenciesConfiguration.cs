@@ -26,7 +26,7 @@ namespace DependencyInjectionContainerLib
     public class DependencyKey : Attribute
     {
         public int NameOfDepend { get; }
-        public DependencyKey(Enum nameOfDepend)
+        public DependencyKey(object nameOfDepend)
         {
             this.NameOfDepend = Convert.ToInt32(nameOfDepend);
         }
@@ -40,7 +40,7 @@ namespace DependencyInjectionContainerLib
         {
             Register(typeof(U), typeof(V), TimeToLive, Convert.ToInt32(name));
         }
-        private void Register(Type Dependency, Type Implementation, TimeToLive timeToLive, int name=0)
+        public void Register(Type Dependency, Type Implementation, TimeToLive timeToLive, int name=0)
         {
             InterfaceImplementation implementationBuf = new InterfaceImplementation(Implementation, timeToLive, name);
             if (InterfaceDependencies.ContainsKey(Dependency))

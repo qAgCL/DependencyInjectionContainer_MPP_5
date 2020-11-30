@@ -53,6 +53,42 @@ namespace TestForLib
             return 30 - getNum.GetNum();
         }
     }
+    public enum Numbers
+    {
+        Five,
+        Seven,
+        Ten,
+    }
+    public class NameConst
+    {
+        IGetNum getNum;
+        public NameConst([DependencyKey(Numbers.Five)]IGetNum getNum)
+        {
+            this.getNum = getNum;
+        }
+        public int GetNum()
+        {
+            return getNum.GetNum();
+        }
+    }
+    interface IService<TGetNum> where TGetNum : IGetNum
+    {
+        int GetNum();
+    }
+
+    class GetGenricNum<TGetNum> : IService<TGetNum>
+        where TGetNum : IGetNum
+    {
+        IGetNum getNum;
+        public GetGenricNum(TGetNum getNum)
+        {
+            this.getNum = getNum;
+        }
+        public int GetNum()
+        {
+            return getNum.GetNum();
+        }
+    }
     [TestClass]
     public class LibTests
     {
@@ -131,12 +167,7 @@ namespace TestForLib
             Assert.AreEqual(test.Substarction(), 23);
         }
 
-        public enum Numbers
-        {
-            Five,
-            Seven,
-            Ten,
-        }
+       
 
         [TestMethod]
         public void TestNameDependenies()
@@ -155,7 +186,48 @@ namespace TestForLib
             Assert.AreEqual(testFive.GetNum(), 5);
             Assert.AreEqual(testTen.GetNum(), 10);
         }
-   
+
+
+        [TestMethod]
+        public void TestGeneric()
+        {
+            DependenciesConfiguration configuration = new DependenciesConfiguration();
+            configuration.Register<IGetNum, GetTen>(TimeToLive.InstancePerDependency);
+            configuration.Register<IService<IGetNum>, GetGenricNum<IGetNum>>(TimeToLive.InstancePerDependency);
+            DependencyProvider provider = new DependencyProvider(configuration);
+
+            var test = provider.Resolve<IService<IGetNum>>();
+
+            Assert.AreEqual(test.GetNum(), 10);
+        }
+
+        [TestMethod]
+        public void TestOpenGeneric()
+        {
+            DependenciesConfiguration configuration = new DependenciesConfiguration();
+            configuration.Register<IGetNum, GetTen>(TimeToLive.InstancePerDependency);
+            configuration.Register(typeof(IService<>), typeof(GetGenricNum<>),TimeToLive.InstancePerDependency);
+            DependencyProvider provider = new DependencyProvider(configuration);
+
+            var test = provider.Resolve<IService<IGetNum>>();
+
+            Assert.AreEqual(test.GetNum(), 10);
+        }
+        [TestMethod]
+        public void TestNameDependeniesFromConstructor()
+        {
+            DependenciesConfiguration configuration = new DependenciesConfiguration();
+            configuration.Register<IGetNum, GetFive>(TimeToLive.InstancePerDependency, Numbers.Five);
+            configuration.Register<IGetNum, GetSeven>(TimeToLive.InstancePerDependency, Numbers.Seven);
+            configuration.Register<IGetNum, GetTen>(TimeToLive.InstancePerDependency, Numbers.Ten);
+            configuration.Register<NameConst, NameConst>(TimeToLive.InstancePerDependency);
+            DependencyProvider provider = new DependencyProvider(configuration);
+
+            var test = provider.Resolve<NameConst>();
+
+            Assert.AreEqual(test.GetNum(), 5);
+        }
+
         [TestMethod]
         public void TestRecursion()
         {
