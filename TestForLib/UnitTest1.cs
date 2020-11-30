@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DependencyInjectionContainerLib;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 namespace TestForLib
 {
     public abstract class GetAbsNum{
@@ -75,7 +76,18 @@ namespace TestForLib
     {
         int GetNum();
     }
+    interface ISingleton
+    {
 
+    }
+    public class Singleton : ISingleton
+    {
+        public int rand;
+        public Singleton()
+        {
+            rand = new Random().Next();
+        }
+    }
     class GetGenricNum<TGetNum> : IService<TGetNum>
         where TGetNum : IGetNum
     {
@@ -92,11 +104,6 @@ namespace TestForLib
     [TestClass]
     public class LibTests
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-
-        }
         [TestMethod]
         public void TestEnumerableNum()
         {
@@ -121,7 +128,26 @@ namespace TestForLib
             i.MoveNext();
             Assert.AreEqual(((IGetNum)i.Current).GetNum(), 10);
         }
+        DependencyProvider providerSingle;
+        int testInt;
+        [TestMethod]
+        public void TestSingleton()
+        {
+            DependenciesConfiguration configuration = new DependenciesConfiguration();
+            configuration.Register<ISingleton, Singleton>(TimeToLive.InstancePerDependency);
+            providerSingle = new DependencyProvider(configuration);
 
+            Thread secondThread = new Thread(new ThreadStart(SecondThread));
+            secondThread.Start();
+            var test = providerSingle.Resolve<ISingleton>();
+            Thread.Sleep(2);
+            Assert.AreEqual((test as Singleton).rand, testInt);
+        }
+        public void SecondThread()
+        {
+            var test = providerSingle.Resolve<ISingleton>();
+            testInt = (test as Singleton).rand;
+        }
         [TestMethod]
         public void TestAbsractrFive()
         {
