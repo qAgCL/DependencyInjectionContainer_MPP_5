@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionContaine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForLib", "TestForLib\TestForLib.csproj", "{ED69AA62-7ACC-4FF9-91B1-D87E0DBDC64D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPOTests", "NPOTests\NPOTests.csproj", "{6659520F-6231-43A5-8A8D-E5984D0248AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ED69AA62-7ACC-4FF9-91B1-D87E0DBDC64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED69AA62-7ACC-4FF9-91B1-D87E0DBDC64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED69AA62-7ACC-4FF9-91B1-D87E0DBDC64D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6659520F-6231-43A5-8A8D-E5984D0248AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6659520F-6231-43A5-8A8D-E5984D0248AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6659520F-6231-43A5-8A8D-E5984D0248AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6659520F-6231-43A5-8A8D-E5984D0248AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

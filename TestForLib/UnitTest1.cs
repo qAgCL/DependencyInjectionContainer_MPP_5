@@ -82,7 +82,7 @@ namespace TestForLib
     }
     public class Singleton : ISingleton
     {
-        public int rand;
+        public int rand { get; private set; }
         public Singleton()
         {
             rand = new Random().Next();
@@ -134,13 +134,12 @@ namespace TestForLib
         public void TestSingleton()
         {
             DependenciesConfiguration configuration = new DependenciesConfiguration();
-            configuration.Register<ISingleton, Singleton>(TimeToLive.InstancePerDependency);
+            configuration.Register<ISingleton, Singleton>(TimeToLive.Singleton);
             providerSingle = new DependencyProvider(configuration);
-
+            var test = providerSingle.Resolve<ISingleton>();
             Thread secondThread = new Thread(new ThreadStart(SecondThread));
             secondThread.Start();
-            var test = providerSingle.Resolve<ISingleton>();
-            Thread.Sleep(2);
+            Thread.Sleep(1000);
             Assert.AreEqual((test as Singleton).rand, testInt);
         }
         public void SecondThread()
